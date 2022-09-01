@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using LoggingKata;
 
 namespace LoggingKata.Test
 {
@@ -30,14 +31,28 @@ namespace LoggingKata.Test
             //       each representing a TacoBell location
 
             //Arrange
-
+            var tacoParser = new TacoParser();
             //Act
-
+            var actual = tacoParser.Parse(line).Location.Longitude;
             //Assert
+            Assert.Equal(expected, actual);
+
         }
 
-
         //TODO: Create a test ShouldParseLatitude
+        [Theory]
+        [InlineData("34.095209, -84.011894, Taco Bell Bufor...", 34.095209)]
+        [InlineData("34.571839, -87.014351, Taco Bell Decatur...", 34.571839)]
 
+
+        public void ShouldParseLatitude(string line, double expected)
+        {
+            var tacoParser = new TacoParser();
+
+            var actual= tacoParser.Parse(line).Location.Latitude;
+
+            Assert.Equal(expected, actual);
+
+        }
     }
 }
